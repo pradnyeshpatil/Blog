@@ -15,3 +15,16 @@ User.create!(name: "Pradnyesh Patil",
                password:              password,
                password_confirmation: password)
 end
+
+ # Generate microposts for a subset of users.
+ users = User.order(:created_at).take(6)
+ 50.times do
+    title =  Faker::Lorem.sentence(word_count: 5)
+    content = Faker::Lorem.sentence(word_count: 10)
+    users.each do |user| 
+     user.posts.create!(content: content,
+                        title: title) 
+      
+    
+  end
+end

@@ -1,0 +1,13 @@
+
+  <h3>
+  <%= link_to post.title, post %>
+  <% if current_user.admin? || (post.user==current_user) %>
+     <%= link_to "delete", post, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+
+  <% end %>
+  <% if post.user == current_user %>
+    <%= link_to "Edit", edit_post_path(post), method: :get %>
+    <%end%>
+  <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+  </h3>

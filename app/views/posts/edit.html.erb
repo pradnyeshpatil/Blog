@@ -1,0 +1,12 @@
+<%= form_with(model: @post, local: true) do |form| %>
+  
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Title", required:"required" %>
+  </div>
+<div class="field">
+    <%= form.label :content %>
+    <%= form.rich_text_area :content, placeholder: "Write a Blog...", required:"required" %>
+  </div>
+  <%= form.submit "Post", class: "btn btn-primary" %>
+<% end %>
