@@ -1,4 +1,5 @@
 <% provide(:title, 'All posts') %>
+<li><%= link_to "Export CSV", posts_path(format: :csv) %></li>
 <h1>All post</h1>
 <%= will_paginate %>
 

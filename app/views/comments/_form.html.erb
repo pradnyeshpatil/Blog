@@ -1,14 +1,34 @@
-<%= form_for([@post,@post.comments.build]) do |f| %>
-  <p>
-  <%= f.label :name %></br>
-  <%= f.text_field :name %>
-  </p>
-  <p>
-  <%= f.label :body %><br>
-  <%= f.text_area :body %>
-  </p>
-  </br>
-  <p>
-  <%= f.submit "Submit" %>
-  </p>
-<% end %>
+	
+	<%= form_for([@post, @comment]) do |f| %>
+		<h3>Add Comment</h3>
+        
+		<div class="form-group">
+			<div class="input-group">
+				<%= f.text_area :body, class: 'form-control', placeholder:"Comment", required:"required"  %>
+			</div>
+		</div>
+		<% (1..5).each do |rating| %>
+			<input type="radio" id="<%= rating %>" name="rating"  value="<%= rating %>"><%= rating %>
+		<% end %><br>
+		
+		<%= f.submit "Comment", class: "btn btn-primary" %>
+	<% end %>
+	<%= javascript_tag do %>
+		$(document).ready(function(){
+			$("[name='rating']").click(function(e){
+				var star = $(e.target).attr('id');
+				var url = "/posts/"+<%= @post.id %>+"/update_rating"
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: { star: star},
+					beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]')
+							.attr('content')) },
+					async: true,
+					success : function(response){
+						debugger
+					}
+				})
+			});
+		});
+	<% end %>

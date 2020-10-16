@@ -1,12 +1,25 @@
 class PostsController < ApplicationController
-
   def index
     @posts = Post.paginate(page: params[:page])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Post.as_csv }
+    end
+  end
+
+  def update_rating
+    
+    @post = Post.find(params[:id])
+    rating_params = {star: params[:star], user_id: current_user.id, post_id: params[:id]}
+    @rating = Rating.find_or_initialize_by(user_id: current_user.id, post_id: params[:id])
+    @rating.star=params[:star]
+    @rating.save
   end
 
   def show
     @post = Post.find(params[:id])
-    
+    @comment = @post.comments.new
   end
 
   def new
@@ -42,11 +55,9 @@ class PostsController < ApplicationController
     redirect_to posts_url
   end
 
-
   private 
 
   def post_params
     params.require(:post).permit(:title, :content)
   end
-
 end

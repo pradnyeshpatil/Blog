@@ -14,19 +14,19 @@
 </div>
 <div class="box" >
 <hr style="height:1px;border-width:0;color:gray;background-color:gray">
-        <% if !@post.comments.any? %>
-          <div class="text-center">
-            <h3> Be the first to comment </h3>
-          </div>
-          <%= @post.comments.count %> Comments
-          <%= render @post.comments %>
-          <h3>Add a Comment</h3>
-          <%= render 'comments/form' %>
-        <% else %>
-          <%= @post.comments.count %> Comments
-          <%= render @post.comments %>
-          <h3>Add a Comment</h3>
-          <%= render 'comments/form' %>
-        <% end %>
+          
+  <% if !@post.comments.any? %>
+    <div class="text-center">
+      <h3> Be the first to comment </h3>
+    </div>
+  <% end %>    
+  
+  <%= render 'comments/form' %>
+  <hr style="height:1px;border-width:0;color:gray;background-color:gray">
+  <%= @post.comments.count %> Comments
+  <%= render @post.comments %>
+  
+  
 </div>
 </div>
+

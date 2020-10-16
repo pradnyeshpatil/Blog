@@ -3,7 +3,7 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<% if comment.id.present? %>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
@@ -25,15 +25,13 @@
           <% if current_user.admin? || current_user?(comment.post.user) %>
             <span class="text-muted"><%= link_to "delete", [comment.post,comment], method: :delete,data: { confirm: "You sure?" } %></span>
           <% end %>
-          </div>
-      
         </div>
         <div class="panel-body">
           <%= comment.body %> 
         </div><!-- /panel-body -->
         </div><!-- /panel panel-default -->
     </div><!-- /col-sm-5 -->
-
+<% end %>
   </div><!-- /row -->
 
 </div><!-- /container -->

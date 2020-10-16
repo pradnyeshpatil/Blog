@@ -3,7 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',       '6.0.2.1'
 gem 'bcrypt',         '3.1.13'
+gem 'ratyrate'
 gem 'image_processing', '~> 1.0'
+gem 'pry', '~> 0.13.1'
 gem 'faker',          '2.1.2'
 gem 'better_errors', '~> 2.8', '>= 2.8.3'
 gem 'will_paginate',           '3.1.8'
