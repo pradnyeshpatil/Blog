@@ -1,0 +1,4 @@
+MAIL_USERNAME: 'shyampatil1312@gmail.com'
+MAIL_PASSWORD: 'shyampatil@123'
+PRODUCTION_HOST: 'https://safe-refuge-48551.herokuapp.com/'
+DEVELOPMENT_HOST: 'localhost:3000'
