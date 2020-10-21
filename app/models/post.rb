@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   validates :content, presence: true, length: { maximum: 500 }
 
   def after_create 
-    TimeReminderJob.set(wait: 6.hours).perform_later(self.id)
+    TimeReminderJob.set(wait: 30.seconds).perform_later(self.id)
   end
 
   def viewer_count
