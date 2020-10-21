@@ -1,3 +1,6 @@
+ActiveSupport.on_load(:active_job) do
+  ActiveJob::Base.queue_adapter = Rails.application.config.active_job.queue_adapter
+end
 # Create a main sample user.
 User.create!(name: "Pradnyesh Patil",
              email: "patilpradnyesh1312@gmail.com",
