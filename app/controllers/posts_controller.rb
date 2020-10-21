@@ -1,11 +1,21 @@
 class PostsController < ApplicationController
+  
   def index
-    @posts = Post.paginate(page: params[:page])
-
+    @posts = Post.where(status: 'published').paginate(page: params[:page])
+    
     respond_to do |format|
       format.html
       format.csv { send_data Post.as_csv }
     end
+  end
+
+
+  def publish
+    
+    @post = Post.find(params[:post_id])
+    @post.status = 'published'
+    @post.save
+    redirect_to @post
   end
 
   def update_rating
@@ -20,6 +30,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = @post.comments.new
+    @post.viewer_count
+    @post.save
+    if @post.viewers%10 == 0
+      ViewerReminderJob.perform_now(@post)
+    end
   end
 
   def new
@@ -42,6 +57,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      
       flash[:success] = "Blog updated"
       redirect_to @post
     else
@@ -58,6 +74,6 @@ class PostsController < ApplicationController
   private 
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :required_time)
   end
 end

@@ -1,5 +1,7 @@
 require 'csv'
 class Post < ApplicationRecord
+  enum status: [:draft, :published]
+  after_create :after_create
   has_rich_text :content
   has_many :comments, dependent: :destroy
   belongs_to :user 
@@ -10,7 +12,13 @@ class Post < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
 
+  def after_create 
+    TimeReminderJob.set(wait: 30.seconds).perform_later(self.id)
+  end
 
+  def viewer_count
+    self.increment!(:viewers)
+  end
 
   def self.as_csv
     CSV.generate do |csv|
