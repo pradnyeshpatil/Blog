@@ -1,12 +1,23 @@
-<%= form_with(model: @post, local: true) do |form| %>
-  
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :title, class: "form-control", placeholder: "Title", required:"required" %>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_with(model: @post, local: true) do |form| %>
+      
+      <div class="field">
+        <%= form.label :name %>
+        <%= form.text_field :title, class: "form-control", placeholder: "Title", required:"required" %>
+      </div>
+      <div class="field">
+        <%= form.label :content %>
+        <%= form.rich_text_area :content, class: "form-control", placeholder: "Write a Blog...", required:"required" %>
+      
+      </div></br>
+      <div class="field">
+      <%= form.label :required_time_to_complete_this_blog_in_days %>
+      <%= form.number_field :required_time, in: 1...10 %>
+      </div>
+        
+      
+      <%= form.submit "Post", class: "btn btn-primary" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.rich_text_area :content, class: "form-control", placeholder: "Write a Blog...", required:"required" %>
   </div>
-  <%= form.submit "Post", class: "btn btn-primary" %>
-<% end %>

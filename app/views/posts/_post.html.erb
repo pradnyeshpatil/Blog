@@ -8,6 +8,11 @@
   <% end %>
   <% if post.user == current_user %>
     <%= link_to "Edit", edit_post_path(post), method: :get %>
-    <%end%>
+  <% end %>
+  
+  <% if post.status == "draft" %>
+    <%= link_to "Publish", post_publish_path(post), method: :post %>
+  <% end %>
+  
   <hr style="height:2px;border-width:0;color:gray;background-color:gray">
   </h3>
